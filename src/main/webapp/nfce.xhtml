@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body >
+	<h:form styleClass="container-fluid" id="formulario">
+		<h:outputLabel value="              M. A. CONCEICAO CIA LTDA" style="white-space:pre;"  styleClass="fw-bold" escape="false" />
+		<br/>
+		<h:outputLabel value="   CNPJ - " style="white-space:pre;" styleClass=" fw-bold" />
+		<h:outputLabel value=" 02.422.514/0001-60" style="white-space:pre;" />
+		<h:outputText value=" IE - " style="white-space:pre;" styleClass=" fw-bold" />
+		<h:outputText value="121631214" style="white-space:pre;"/>
+		<br/>
+		<h:outputText value="                 Br 316 Km 358, 1000" style="white-space:pre;" />
+		<br/>
+		<h:outputText value="                         Cohab III" style="white-space:pre;" />
+		<br/>
+		<h:outputText value="                    CEP 65700-000" style="white-space:pre;" />
+		<br/>
+		<h:outputText value="                      Bacabal - MA" style="white-space:pre;" />
+		<br/>
+		<h:outputText value="                 Telefone: (99) 3621-1526" style="white-space:pre;" />
+		<br/>
+		<h:outputText value="_____________________________________________________" style="line-height: 90%;"/>
+		<br/>
+		<h:outputText value="           Documento Auxiliar da Nota Fiscal de" style="line-height: 90%;white-space:pre;" styleClass=" fw-bold"/>
+		<br/>
+		<h:outputText value="                    Consumidor Eletrônica    " style="height: 90%;white-space:pre;" styleClass="fw-bold"/>
+		<br/>
+		<h:outputText value="_________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="Código" style="white-space:pre;line-height: 10%;" styleClass=" fw-bold" />
+		<h:outputText value="                Descrição" style="white-space:pre;height: 90px;" styleClass=" fw-bold"/>
+		<br/>
+		<h:outputText value="       Qtde" style="white-space:pre;height: 90px;" styleClass=" fw-bold"/>
+		<h:outputText value="     Vl Unit." style="white-space:pre;height: 90px;" styleClass=" fw-bold"/>
+		<h:outputText value="       Desconto" style="white-space:pre;height: 90px;" styleClass=" fw-bold"/>
+		<h:outputText value="     Valor Total" style="white-space:pre;height: 90px;" styleClass=" fw-bold"/>
+		<br/>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<ui:repeat var="p" value="#{nFCEView.nfce.listProdutos}">
+			<h:outputText value="#{p.produtoBean.codigo}              #{p.produtoBean.descricaoProduto}    Lote #{p.lote}" style="white-space:pre;height: 90px;"/>	
+			<br/>
+			<h:outputText value="       #{p.quantidade}          #{p.produtoBean.precoUnitario}       #{p.desconto}        #{p.valorTotal}" style="white-space:pre;height: 90px;"/>	
+			<br/>
+		</ui:repeat>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="Qtde total de itens                                           " styleClass=" fw-bold" style="white-space:pre;height: 90px;" />
+		<h:outputText value="#{nFCEView.quantItens}"/>
+		<br/>
+		<h:outputText value="Desconto                                                      " styleClass=" fw-bold" style="white-space:pre;height: 90px;" />
+		<h:outputText value="#{nFCEView.nfce.descontoTotal}"/>
+		<br/>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="Forma de Pagamento                              Valor Pago" styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="#{nFCEView.nfce.formaPagamento}                #{nFCEView.nfce.totalNfe}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="Troco R$                             #{nFCEView.nfce.troco}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="Informação dos Tributos Totais Incidentes" styleClass=" fw-bold" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="(Lei Federal 12.741 / 2012)                         " styleClass=" fw-bold" style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.valorTotalTributacao}" style="line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="                             ICMS ISENTO CONFORME                       " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="           Art. 42, inciso III do Anexo 1.2 do RICMS/2003                       " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="               Prorrogado pela Resolucao Administrativa                        " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                                           24/2020                        " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="              Val Aprox Tributos R$ #{nFCEView.nfce.valorTotalTributacao} Fonte: IBPT                       " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="              Resolucao do Senado Federal nº 13/12,                       " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                            Via Consumidor                       " style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="Número                       " styleClass="fw-bold"  style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.numeroNota}" />
+		<h:outputText value="                 Série    " styleClass="fw-bold"  style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.serie}" />
+		<br/>
+		<h:outputText value="Emissão  " styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.dataEmissao}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="              Consulte pela Chave de Acesso em  "  style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="   http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe." style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                    do?method=preFilterCupom" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                          CHAVE DE ACESSO"  styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                 #{nFCEView.nfce.chave}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="__________________________________________________________" style="height: 90%;line-height: -20px;font-size: 15px;"/>
+		<br/>
+		<h:outputText value="                       CONSUMIDOR" styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                       CPF          " styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.cpf}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                       #{nFCEView.nfce.nome}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="              Consulta via leitor de QR Code" styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="                           " style="white-space:pre;height: 90px;"/>
+		<pe:qrCode text="#{nFCEView.nfce.qrcode}" size="100" renderMethod = "canvas" fillColor="#000000"/>
+		<br/>
+		<h:outputText value="       Protocolo de Autorização " styleClass="fw-bold" style="white-space:pre;height: 90px;"/>
+		<h:outputText value="#{nFCEView.nfce.protocoloAutorizacao}" style="white-space:pre;height: 90px;"/>
+		<br/>
+		<h:outputText value="        #{nFCEView.nfce.dataAutorizacao}" style="white-space:pre;height: 90px;"/>
+		
+		
+	</h:form>
+</h:body>
+
+</html>

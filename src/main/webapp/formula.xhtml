@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body>
+	<h:form id="formulario">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+
+		<nav class="navbar navbar-light" style="background: #283593;">
+			<h:panelGrid columns="2" cellpadding="5" styleClass="container-fluid">
+				<p:graphicImage library="images"
+					value="resources/images/multigado.png" width="60px" height="60px" />
+				<a class="nav-link active text-white">Formulas</a>
+			</h:panelGrid>
+		</nav>
+
+		<h:panelGrid columns="1" styleClass="container-fluid">
+			<p:panel header="Produto">
+				<h:panelGrid columns="2">
+					<p:autoComplete value="#{formulaView.pesquisaProduto}"
+						placeholder="Produto"
+						completeMethod="#{formulaView.pesquisaProduto}" scrollHeight="100"
+						size="50">
+					</p:autoComplete>
+					<h:commandButton value="Carregar Matéria Prima"
+						styleClass="btn btn-primary btn-md"
+						actionListener="#{formulaView.carregarFormulas()}" update="tabela" />
+				</h:panelGrid>
+			</p:panel>
+			<p:panel header="Atenção valores correspondentes a 20 sacos"
+				styleClass="h6">
+				<h:panelGrid columns="4" cellspacing="10px">
+					<p:autoComplete value="#{formulaView.pesquisaMateriaPrima}"
+						placeholder="Adicionar Material Prima"
+						completeMethod="#{formulaView.pesquisaMateriaPrima}"
+						scrollHeight="100" size="30">
+					</p:autoComplete>
+					<p:inputText value="#{formulaView.formulaBean.valor}"
+						placeholder="Valor" />
+
+					<p:selectOneMenu value="#{formulaView.formulaBean.tipo}"
+						style="width:125px">
+						<f:selectItem itemLabel="Tipo" itemValue="" />
+						<f:selectItem itemLabel="Macro" itemValue="MACRO" />
+						<f:selectItem itemLabel="Micro" itemValue="MICRO" />
+
+					</p:selectOneMenu>
+
+					<h:commandButton value="Adicionar"
+						actionListener="#{formulaView.adicionaFormula()}"
+						update="formulario" styleClass="btn btn-success btn-md" />
+				</h:panelGrid>
+			</p:panel>
+		</h:panelGrid>
+		<p:dataTable value="#{formulaView.listaMateria}" var="materia"
+			styleClass="ui fluid table" id="tabela"
+			emptyMessage="Não há formulas para esse Produto">
+			<p:column headerText="Produto">
+				<h:outputText value="#{materia.produto.descricaoProduto}" />
+			</p:column>
+
+			<p:column headerText="Matéria Prima">
+				<h:outputText value="#{materia.materialPrima.descricaoProduto}" />
+			</p:column>
+
+			<p:column headerText="Tipo">
+				<h:outputText value="#{materia.tipo}" />
+			</p:column>
+
+			<p:column headerText="Valor">
+				<h:inputText value="#{materia.valor}" />
+			</p:column>
+			<p:column>
+				<p:commandButton value="Editar Valor"
+					actionListener="#{formulaView.editarValor(materia)}"
+					update="tabela" />
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+</h:body>
+
+</html>

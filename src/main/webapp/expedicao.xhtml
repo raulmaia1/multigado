@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body>
+	<h:form id="formulario">
+
+		<nav class="navbar navbar-light" style="background: #283593;">
+				<h:panelGrid columns="2" cellpadding="5" styleClass="container-fluid">
+					<p:graphicImage library="images"
+						value="resources/images/multigado.png" width="60px" height="60px" />
+					<a class="nav-link active text-white">Expedição</a>
+			</h:panelGrid>
+		</nav>
+
+		<p:dataGrid var="expedicao" styleClass="row"
+			value="#{expedicaoView.expedicaoBeans}" columns="3"
+			layout="grid" id="grid"
+			emptyMessage="Não há OS abertas ou houve um erro ao conectar ao banco de dados.">
+
+			<div class="card text-white" style="background: #B71C1C;">
+				<div class="card-header text-center">
+					<h3 class="display-6 font-weight: bold">#{expedicao.ordemServicoBean.produtoBean.descricaoProduto}</h3>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">#{expedicao.ordemServicoBean.clienteBean.nome}</h5>
+					<h6 class="card-text">Abertura: #{expedicao.ordemServicoBean.dataGravacaoBR}</h6>
+					<h6 class="card-text">Conclusão da Produção: #{expedicao.dataConclusaoProducaoBR}</h6>
+					<h6 class="card-text">Resp. pelo Carregamento: #{expedicao.ordemServicoBean.detalhe4}</h6>
+					<h6 class="card-text">Motorista: #{expedicao.ordemServicoBean.detalhe7}</h6>
+					<h6 class="card-text">Qtde (SACOS): #{expedicao.ordemServicoBean.detalhe6}</h6>
+					<h5 class="card-text">OS: #{expedicao.ordemServicoBean.numeroOS}</h5>
+
+
+				</div>
+				<div class="card-footer" style="background: #283593;">
+				<div class="d-grid gap-2 col-8 mx-auto">
+				 	<p:selectOneMenu value="#{expedicao.nomeSituacao}" styleClass="form-group">
+           			 	<f:selectItem itemLabel="Selecione a forma de Entrega" itemValue="" />
+            			<f:selectItem itemLabel="Cliente retirou na fábrica" itemValue="5" />
+            			<f:selectItem itemLabel="Entregue ao cliente no seu endereço" itemValue="4" />
+      				</p:selectOneMenu>
+					 
+ 					<h:commandButton styleClass="btn btn-warning btn-lg" update="grid" value="#{expedicao.duracaoExpedicao}"
+							actionListener="#{expedicaoView.finalizarCarregamento(expedicao)}" />
+				</div>
+				</div>
+			</div>
+
+
+			<!-- 					<f:facet name="header"> -->
+			<!-- 						<div class="card-header"> -->
+
+			<!-- 						</div> -->
+			<!-- 					</f:facet> -->
+			<!-- 					<f:facet name="title"> -->
+			<!-- 						<h4 class="card-title bold"></h4> -->
+			<!-- 					</f:facet> -->
+			<!-- 					<f:facet name="subtitle"> -->
+			<!-- 						<div class="text-white"> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" value="   " /> -->
+			<!-- 							<h:outputLabel styleClass="h4" value="" /> -->
+			<!-- 							<br></br> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" -->
+			<!-- 								value="  "></h:outputText> -->
+			<!-- 							<h:outputLabel styleClass="h4" value="" /> -->
+			<!-- 							<br></br> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" -->
+			<!-- 								value=""></h:outputText> -->
+			<!-- 							<h:outputLabel styleClass="h5" value=""></h:outputLabel> -->
+			<!-- 						</div> -->
+			<!-- 						<p class="fs-5 text-white">FORMULA</p> -->
+			<!-- 						<p class="lead bold"> -->
+			<!-- 							<strong></strong> -->
+			<!-- 						</p> -->
+			<!-- 						<p class=""> -->
+			<!-- 							<strong>.</strong> -->
+			<!-- 						</p> -->
+
+			<!-- 					</f:facet> -->
+
+			<!-- 					<f:facet name="footer"> -->
+
+			<!-- 					</f:facet> -->
+			<!-- 				</p:card> -->
+
+		</p:dataGrid>
+		<p:poll interval="60"
+			listener="#{expedicaoView.filtraExpedicoesAbertas}"
+			update="formulario" />
+
+	</h:form>
+</h:body>
+
+</html>

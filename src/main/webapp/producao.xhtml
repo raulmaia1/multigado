@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body>
+	<h:form id="formulario">
+
+		<nav class="navbar navbar-light" style="background: #283593;">
+			<h:panelGrid columns="2" cellpadding="5" styleClass="container-fluid">
+				<p:graphicImage library="images"
+					value="resources/images/multigado.png" width="60px" height="60px" />
+				<a class="nav-link active text-white">Produção</a>
+			</h:panelGrid>
+		</nav>
+
+		<p:dataGrid var="ordem" styleClass="row"
+			value="#{dashBoardOrdemAbertasView.ordemServicoAbertas}" columns="3"
+			layout="grid"
+			emptyMessage="Não há OS abertas ou houve um erro ao conectar ao banco de dados.">
+
+			<div class="card text-white" style="background: #283593;">
+				<div class="card-header text-center">
+					<h3 class="display-6 font-weight: bold">#{ordem.produtoBean.descricaoProduto}</h3>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">#{ordem.clienteBean.nome}</h5>
+					<h6 class="card-text">Abertura OS: #{ordem.dataGravacaoBR}</h6>
+					<h6 class="card-text">Resp. pela Produção: #{ordem.detalhe3}</h6>
+					<h6 class="card-text">QTDe (KG): #{ordem.detalhe5}</h6>
+					<h6 class="card-text">OS: #{ordem.numeroOS}</h6>
+
+
+					<h:dataTable value="#{ordem.formulas}" var="materia"
+						rendered="#{not empty ordem.formulas}"
+						styleClass="table table-striped" id="tabela"
+						emptyMessage="Não há formulas para esse Produto">
+
+						<h:column>
+							<f:facet name="header">Formulas<br />
+							</f:facet>
+
+							<f:facet name="header">
+								<h:outputLabel value="Matéria Prima" styleClass="text-muted" />
+							</f:facet>
+							<h:outputText value="#{materia.materialPrima.descricaoProduto}" />
+						</h:column>
+
+						<h:column >
+							<f:facet name="header">
+								<h:outputLabel value="Tipo" styleClass="text-muted" />
+							</f:facet>
+							<h:outputText value="#{materia.tipo}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Valor" styleClass="text-muted" />
+							</f:facet>
+							
+							<h:outputText value="#{materia.valor}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputLabel value="Total" styleClass="text-muted" />
+							</f:facet>
+							<h:outputText value="#{materia.valor * ordem.quantKilos}" />
+						</h:column>
+					</h:dataTable>
+				</div>
+				<div class="card-footer center" style="background: #B71C1C;">
+					<div class="d-grid  mx-auto">
+						<h:commandButton styleClass="btn btn-warning btn-lg"
+							update="formulario" value="#{ordem.duracaoOS}"
+							actionListener="#{dashBoardOrdemAbertasView.finalizarProducao(ordem)}" />
+					</div>
+				</div>
+			</div>
+
+
+			<!-- 					<f:facet name="header"> -->
+			<!-- 						<div class="card-header"> -->
+
+			<!-- 						</div> -->
+			<!-- 					</f:facet> -->
+			<!-- 					<f:facet name="title"> -->
+			<!-- 						<h4 class="card-title bold"></h4> -->
+			<!-- 					</f:facet> -->
+			<!-- 					<f:facet name="subtitle"> -->
+			<!-- 						<div class="text-white"> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" value="   " /> -->
+			<!-- 							<h:outputLabel styleClass="h4" value="" /> -->
+			<!-- 							<br></br> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" -->
+			<!-- 								value="  "></h:outputText> -->
+			<!-- 							<h:outputLabel styleClass="h4" value="" /> -->
+			<!-- 							<br></br> -->
+			<!-- 							<h:outputText styleClass="fs-5 text-white-50" -->
+			<!-- 								value=""></h:outputText> -->
+			<!-- 							<h:outputLabel styleClass="h5" value=""></h:outputLabel> -->
+			<!-- 						</div> -->
+			<!-- 						<p class="fs-5 text-white">FORMULA</p> -->
+			<!-- 						<p class="lead bold"> -->
+			<!-- 							<strong></strong> -->
+			<!-- 						</p> -->
+			<!-- 						<p class=""> -->
+			<!-- 							<strong>.</strong> -->
+			<!-- 						</p> -->
+
+			<!-- 					</f:facet> -->
+
+			<!-- 					<f:facet name="footer"> -->
+
+			<!-- 					</f:facet> -->
+			<!-- 				</p:card> -->
+
+		</p:dataGrid>
+		<p:poll interval="60"
+			listener="#{dashBoardOrdemAbertasView.filtraOrdemAbertas}"
+			update="formulario" />
+
+	</h:form>
+</h:body>
+
+</html>

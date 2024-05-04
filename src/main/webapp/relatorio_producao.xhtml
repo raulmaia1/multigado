@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body>
+	<h:form id="formulario">
+
+		<nav class="navbar navbar-light" style="background: #283593;">
+			<h:panelGrid columns="2" cellpadding="5" styleClass="container-fluid">
+				<p:graphicImage library="images"
+					value="resources/images/multigado.png" width="60px" height="60px" />
+				<a class="nav-link active text-white">Produção</a>
+			</h:panelGrid>
+		</nav>
+		<p:panelGrid columns="2" styleClass="panel" >
+			
+			<p:datePicker id="month" view="month" placeholder="Mês Alvo"
+				value="#{relatorioProducaoView.mesPesquisa}" pattern="MM/yyyy"
+				yearNavigator="true" yearRange="2024:2026" />
+				<p:commandButton icon="pi pi-search" actionListener="#{relatorioProducaoView.procuraDados}"  />
+		</p:panelGrid>
+		<p:panelGrid columns="5">
+			<p:card class="card">
+				<h5>Quantidade de Produções</h5>
+				<h3>#{relatorioProducaoView.quantProducoes}</h3>
+			</p:card>
+
+			<p:card class="card">
+				<h5>Quantidade de Produções</h5>
+			</p:card>
+
+			<p:card class="card">
+				<h5>Quantidade de Produções</h5>
+			</p:card>
+
+			<p:card class="card">
+				<h5>Quantidade de Produções</h5>
+			</p:card>
+
+			<p:card class="card">
+				<h5>Quantidade de Produções</h5>
+			</p:card>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+
+</html>

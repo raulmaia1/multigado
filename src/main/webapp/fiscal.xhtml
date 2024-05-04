@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<ui:insert name="header">
+		<ui:include src="WEB-INF/cabecalho.xhtml" />
+	</ui:insert>
+</h:head>
+
+<h:body>
+	<h:form id="formulario">
+
+		<nav class="navbar navbar-light" style="background: #283593;">
+			<h:panelGrid columns="2" cellpadding="5" styleClass="container-fluid">
+				<p:graphicImage library="images"
+					value="resources/images/multigado.png" width="60px" height="60px" />
+				<a class="nav-link active text-white">Documentos Fiscais</a>
+			</h:panelGrid>
+		</nav>
+		
+		<h:panelGrid columns="4" styleClass="ui-fluid" style="margin: 30px;">
+		
+			<p:inputText placeholder="Digite o número da nota" value="#{fiscalView.numero}" />
+			<div class="d-grid gap-2 d-md-block">
+				<h:commandButton value="Imprimir NFCe" actionListener="#{fiscalView.consultaNota()}" action="nfce" styleClass="btn btn-primary" />
+				<h:commandButton value="Imprimir NFE"  actionListener="#{fiscalView.consultaNota()}" styleClass="btn btn-success"/>
+			</div>
+		</h:panelGrid>
+	
+	</h:form>
+</h:body>
+
+</html>
