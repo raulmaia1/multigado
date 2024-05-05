@@ -20,7 +20,7 @@ public class NFCEView {
 		String numero = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numero");
 
 		 nfce = new DocumentoFiscaisDaoSQLServerJTDS().carregarNFCE(numero,"65");
-		 System.out.println(nfce.getQrcode());
+		 
 	}
 	
 	public DocumentosFiscais getNfce() {
